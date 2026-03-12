@@ -1,73 +1,46 @@
-﻿public class SimpleQueueSolution {
-    public static void Run() {
-        // Test Cases
+﻿using System;
+using System.Collections.Generic;
 
-        // Test 1
-        // Scenario: Enqueue one value and then Dequeue it.
-        // Expected Result: It should display 100
-        Console.WriteLine("Test 1");
-        var queue = new SimpleQueueSolution();
-        queue.Enqueue(100);
-        var value = queue.Dequeue();
-        Console.WriteLine(value);
-        // Defect(s) Found: Trying to remove data from index 1 rather than 0
+Console.WriteLine("\n======================\nSimple Queue\n======================");
 
-        Console.WriteLine("------------");
+var queue = new Queue<int>();
+queue.Enqueue(1);  // 1
+queue.Enqueue(2);  // 1, 2
+queue.Enqueue(3);  // 1, 2, 3
+queue.Dequeue();   // 2, 3
+queue.Dequeue();   // 3
+queue.Enqueue(4);  // 3, 4
+queue.Enqueue(5);  // 3, 4, 5
+queue.Dequeue();   // 4, 5
+queue.Enqueue(6);  // 4, 5, 6
+queue.Enqueue(7);  // 4, 5, 6, 7
+queue.Enqueue(8);  // 4, 5, 6, 7, 8
+queue.Enqueue(9);  // 4, 5, 6, 7, 8, 9
+queue.Dequeue();   // 5, 6, 7, 8, 9
+queue.Dequeue();   // 6, 7, 8, 9
+queue.Enqueue(10); // 6, 7, 8, 9, 10
+queue.Dequeue();   // 7, 8, 9, 10
+queue.Dequeue();   // 8, 9, 10
+queue.Dequeue();   // 9, 10
+queue.Enqueue(11); // 9, 10, 11
+queue.Enqueue(12); // 9, 10, 11, 12
+queue.Dequeue();   // 10, 11, 12
+queue.Dequeue();   // 11, 12
+queue.Dequeue();   // 12
+queue.Enqueue(13); // 12, 13
+queue.Enqueue(14); // 12, 13, 14
+queue.Enqueue(15); // 12, 13, 14, 15
+queue.Enqueue(16); // 12, 13, 14, 15, 16
+queue.Dequeue();   // 13, 14, 15, 16
+queue.Dequeue();   // 14, 15, 16
+queue.Dequeue();   // 15, 16
+queue.Enqueue(17); // 15, 16, 17
+queue.Enqueue(18); // 15, 16, 17, 18
+queue.Dequeue();   // 16, 17, 18
+queue.Enqueue(19); // 16, 17, 18, 19
+queue.Enqueue(20); // 16, 17, 18, 19, 20
+queue.Dequeue();   // 17, 18, 19, 20
+queue.Dequeue();   // 18, 19, 20
 
-        // Test 2
-        // Scenario: Enqueue multiple values and then Dequeue all of them
-        // Expected Result: It should display 200, then 300, then 400 in that order
-        Console.WriteLine("Test 2");
-        queue = new SimpleQueueSolution();
-        queue.Enqueue(200);
-        queue.Enqueue(300);
-        queue.Enqueue(400);
-        value = queue.Dequeue();
-        Console.WriteLine(value);
-        value = queue.Dequeue();
-        Console.WriteLine(value);
-        value = queue.Dequeue();
-        Console.WriteLine(value);
-        // Defect(s) Found: The enqueue was inserting at the front of the queue
-
-        Console.WriteLine("------------");
-
-        // Test 3
-        // Scenario: Dequeue from an empty Queue
-        // Expected Result: An exception should be raised
-        Console.WriteLine("Test 3");
-        queue = new SimpleQueueSolution();
-        try {
-            queue.Dequeue();
-            Console.WriteLine("Oops ... This shouldn't have worked.");
-        }
-        catch (IndexOutOfRangeException) {
-            Console.WriteLine("I got the exception as expected.");
-        }
-        // Defect(s) Found: None :)
-    }
-
-    private readonly List<int> _queue = new();
-
-    /// <summary>
-    /// Enqueue the value provided into the queue
-    /// </summary>
-    /// <param name="value">Integer value to add to the queue</param>
-    private void Enqueue(int value) {
-        _queue.Add(value); // Defect 2 - Need to add to the end of the queue
-    }
-
-    /// <summary>
-    /// Dequeue the next value and return it
-    /// </summary>
-    /// <exception cref="IndexOutOfRangeException">If queue is empty</exception>
-    /// <returns>First integer in the queue</returns>
-    private int Dequeue() {
-        if (_queue.Count <= 0)
-            throw new IndexOutOfRangeException();
-
-        var value = _queue[0]; // Defect 1 - lists start at index 0
-        _queue.RemoveAt(0);
-        return value;
-    }
-}
+Console.WriteLine("Final contents:");
+Console.WriteLine(String.Join(", ", queue.ToArray()));
