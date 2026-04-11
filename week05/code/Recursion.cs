@@ -113,27 +113,33 @@ public static class Recursion
     public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null)
     {
         // Base Cases
-        if (s == 0)
-            return 0;
-        if (s == 1)
-            return 1;
-        if (s == 2)
-            return 2;
-        if (s == 3)
-            return 4;
+    if (s == 0)
+        return 0;
+    if (s == 1)
+        return 1;
+    if (s == 2)
+        return 2;
+    if (s == 3)
+        return 4;
 
-        // Initialize dictionary if null
-        if (remember == null)
-            remember = new Dictionary<int, decimal>();
+    // Initialize dictionary if null
+    if (remember == null)
+        remember = new Dictionary<int, decimal>();
 
-// Check if result already computed
+   // Check memoization
 if (remember.ContainsKey(s))
     return remember[s];
 
-        // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
-        return ways;
-    }
+// Solve using recursion
+decimal ways =
+    CountWaysToClimb(s - 1, remember) +
+    CountWaysToClimb(s - 2, remember) +
+    CountWaysToClimb(s - 3, remember);
+
+// Store result in dictionary
+remember[s] = ways;
+
+return ways;}
 
     /// <summary>
     /// #############
@@ -186,7 +192,7 @@ WildcardBinary(
         // currPath.Add((1,2)); // Use this syntax to add to the current path
 
        // Check if move is valid
-if (!maze.IsValidMove(x, y, currPath))
+if (!maze.IsValidMove(currPath, x, y))
     return;
 
 // Add current position to path
